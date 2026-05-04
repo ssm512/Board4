@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>idcheck</title>
+<style>
+.red { color : red; }
+
+.green { color : green; }
+</style>
+</head>
+<body>
+	<h2>아이디 중복 확인</h2>
+	<form action="/Users/DupCheck" method="get">
+	<input type="text" name="userid" value="${param.userid}"/>
+	<input type="submit" value="중복확인" /><br>
+	<div id="msg">${ msg }</div>
+	<input type="button" value="사용하기" id="btnClose" />
+	
+	</form>
+	
+	<script>
+	// 새창이 열릴때
+	document.addEventListener("DOMContentLoaded", function () {
+		//const thisUseridEl = window.document.querySelector('[name="userid"]');
+		//const	parentUseridEl		=	window.opener.document.querySelector('[name="userid"]');
+		//thisUseridEl.value = parentUseridEl.value;
+		// 위의 3줄을 풀면 문제가 생김
+	})
+	
+	// 사용하기 버튼을 클릭
+	const	btnCloseEl = document.querySelector('#btnClose')
+	btnCloseEl.addEventListener('click', function () {
+		alert('ok')
+		const	thisUseridEl			=	window.document.querySelector('[name=userid]');
+		const	parentUseridEl		=	window.opener.document.querySelector('[name="userid"]');
+		parentUseridEl.value	= thisUseridEl.value;
+		window.close();
+		
+	})
+	
+	
+	</script>
+</body>
+</html>

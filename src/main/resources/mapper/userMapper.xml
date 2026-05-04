@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- Windows -> preferences -> xml 검색 -> XML(wild web developer) -> download external resources ... check 표시 -->
+<!-- namespace="com.green.menus.mapper.MenuMapper" : interface 위치 -->
+<mapper namespace="com.green.users.mapper.UserMapper">
+
+	<select id ="getUserList"
+				resultType="com.green.users.dto.UserDTO">
+		SELECT 		USERID,
+							USERNAME,
+							EMAIL,
+							UPOINT,
+							TO_CHAR(REGDATE, 'YYYY-MM-DD') REGDATE
+		FROM			TUSER 
+		ORDER BY  USERID ASC
+	</select>	
+
+	<select id="getUser">
+	SELECT 		USERID,
+						PASSWORD,
+  					USERNAME,
+						EMAIL,
+						UPOINT,
+						TO_CHAR(REGDATE, 'YYYY-MM-DD HH24:MI:SS') REGDATE
+		FROM		tuser
+		WHERE		userid = #{userid} 
+	</select>
+
+	<insert id="insertUser">
+	INSERT INTO tuser VALUES (#{userid}, #{password}, #{username}, #{email}, 0, SYSDATE)
+	</insert>
+	
+	<!-- 사용자 삭제 -->
+	<delete id="deleteUser">
+	DELETE FROM tuser WHERE userid = #{userid}
+	</delete>
+	
+	<update id="updateUser">
+	UPDATE tuser
+  SET	password = #{password},
+  	  username = #{username},
+  	  email 	 = #{email} 
+  WHERE userid = #{userid}
+	</update>
+	
+	<!-- 아이디 중복 확인 -->
+	<select id="getIdDupCheck">
+	SELECT 	USERID,
+					PASSWORD,
+  				USERNAME,
+					EMAIL,
+					UPOINT,
+					TO_CHAR(REGDATE, 'YYYY-MM-DD HH24:MI:SS') REGDATE 
+	FROM		tuser
+	WHERE		userid=#{userid}
+	</select>
+	
+</mapper>
