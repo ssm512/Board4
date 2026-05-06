@@ -20,3 +20,20 @@
 	h1, h2, h3 { margin : 15px 10px; }
 	
 	.red { color: red;} 
+	
+	.menu {
+		td {
+			padding:0;
+			a {
+				padding: 10px;
+				display : block;
+				color:white;
+				background-color : black;
+				&:hover {
+					text-decoration: none;
+					background-color : #04AA6D;
+					color:white;
+				}
+			}
+		}
+	}
