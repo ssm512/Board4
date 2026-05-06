@@ -44,7 +44,7 @@
 				</tr>
 				<tr>
 					<td>사용자 옛날 password</td>
-					<td><input type="password" id="passwordold" /></td>
+					<td><input type="password" name="oldpwd" id="passwordold" /></td>
 				</tr>
 				<tr>
 					<td>사용자 새 password</td>

@@ -1,6 +1,7 @@
 package com.green.users.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,10 +16,12 @@ public interface UserMapper {
 
 	void deleteUser(UserDTO userDTO);
 
-	void updateUser(UserDTO userDTO);
+	void updateUser(UserDTO userDTO, String oldpwd);
 
 	UserDTO getUser(UserDTO userDTO);
 
 	UserDTO getIdDupCheck(UserDTO userDTO);
+
+	void updateUser2(Map<String, Object> map);
 	
 }

@@ -1,17 +1,20 @@
 package com.green.users.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.green.users.dto.UserDTO;
 import com.green.users.mapper.UserMapper;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/Users")
@@ -87,16 +90,29 @@ public class UserContoller {
 	}
 	
 	// http://localhost:8080/Users/Update?userid=spring04&password=1234&username=spring04&email=spring04%40green.com
+	// http://localhost:8080/Users/Update?userid=spring04&oldpwd=1234&password=1234&username=spring04&email=spring04%40green.com
+	// Controller에서 Map으로 인자를 받을때는 반드시 @RequestParam 을 사용해야 한다
 	@RequestMapping("/Update")
-	public ModelAndView update (UserDTO userDTO) {
-		
-		userMapper.updateUser(userDTO);
-		
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView update (@RequestParam Map<String, Object> map) {
+		System.out.println("map : " + map); // map : {userid=aaa, oldpwd=1234, password=12345, username=aaa, email=aaa@green.com}
+		userMapper.updateUser2(map);
+		ModelAndView mv	=	new	ModelAndView();
 		mv.setViewName("redirect:/Users/List");
-		
 		return mv;
 	}
+		
+	
+	/* 	기존 update 20260506
+	   @RequestMapping("/Update")
+	 * public ModelAndView update (UserDTO userDTO, String oldpwd) {
+	 * 
+	 * userMapper.updateUser(userDTO, oldpwd);
+	 * 
+	 * ModelAndView mv = new ModelAndView(); 
+	 * mv.setViewName("redirect:/Users/List");
+	 * 
+	 * return mv; }
+	 */
 	
 	// 아이디 중복 확인 - jsp를 return하는게 아닌 결과 문자열을 리턴
 	// <b class="green">사용 가능한 아이디입니다.</b>
@@ -113,21 +129,29 @@ public class UserContoller {
 		return user;
 	}
 	
-	// /Users/DupCheckWindow
+	// /Users/DupCheckWindow?first=true
 	@GetMapping("/DupCheckWindow")
-	public ModelAndView dupCheckWindow () {
-		
+	public ModelAndView dupCheckWindow (boolean first, HttpSession session) {
 		
 		ModelAndView	mv	=	new	ModelAndView();
+		// 방법1 - 20260506
+		// first=true활용방법
+		/*
+		 * if(first) mv.addObject("first", first);
+		 */
+		
+		// 방법2 - 20260506
+		session.setAttribute("first", true);
+		
 		mv.setViewName("users/idcheck");
-		mv.addObject("userid", "aaa");
 		return mv;
 	}
 	
 	// 중복확인 
 	// /Users/DupCheck?userid=aaa
 	@RequestMapping("/DupCheck")
-	public ModelAndView dupCheck (UserDTO userDTO) {
+	public ModelAndView dupCheck (UserDTO userDTO, HttpSession session) {
+		session.setAttribute("first", ""); // 한번 맺어진 session의 session 값은 계속 유지가 됨, 그래서 close해주거나, 값을 수정해줘야 됨
 		UserDTO			user	=	userMapper.getUser(userDTO);
 		String			msg		=	"<b class='red'>사용 불가능</b>";
 		if(user == null)

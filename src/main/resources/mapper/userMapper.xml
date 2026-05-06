@@ -37,12 +37,14 @@
 	DELETE FROM tuser WHERE userid = #{userid}
 	</delete>
 	
+	<!-- 사용자 수정 : oldpwd, arg0, param1(oldpwd자리에 param1을 쓰는게 원래임, jdk17까지는 무조건) -->
 	<update id="updateUser">
 	UPDATE tuser
-  SET	password = #{password},
-  	  username = #{username},
-  	  email 	 = #{email} 
-  WHERE userid = #{userid}
+  SET	password = #{userDTO.password},
+  	  username = #{userDTO.username},
+  	  email 	 = #{userDTO.email} 
+  WHERE userid = #{userDTO.userid}
+  AND		password = #{oldpwd}
 	</update>
 	
 	<!-- 아이디 중복 확인 -->
@@ -56,5 +58,17 @@
 	FROM		tuser
 	WHERE		userid=#{userid}
 	</select>
+	
+	<!-- 사용자 수정 : map으로 받아서, 
+			password(정상 동작)
+			map.password와 같이 map.을 붙이면 오류발생-->
+	<update id="updateUser2">
+		UPDATE tuser
+  	SET	password = #{password},
+  	  	username = #{username},
+  	  	email 	 = #{email} 
+ 	  WHERE userid = #{userid}
+ 	  AND		password = #{oldpwd}
+	</update>
 	
 </mapper>
