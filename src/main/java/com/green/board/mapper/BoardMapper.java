@@ -13,4 +13,10 @@ public interface BoardMapper {
 
 	List<BoardDTO> getBoardList(MenuDTO menuDTO);
 
+	void deleteBoard(BoardDTO boardDTO);
+
+	BoardDTO getBoard(BoardDTO boardDTO);
+
+	void incHit(BoardDTO boardDTO);
+
 }
