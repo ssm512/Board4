@@ -23,6 +23,12 @@
 	 WHERE		 MENU_ID = #{menu_id}
   </select>
   
+  <select id="getMenuName">
+		SELECT MENU_NAME  
+		FROM MENUS  
+		WHERE menu_id = #{menu_id}
+	</select>
+  
   <!-- 메뉴추가 -->
   <insert id="insertMenu">
   INSERT INTO MENUS VALUES (#{menu_id}, #{menu_name}, #{menu_seq}) 

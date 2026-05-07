@@ -21,7 +21,17 @@ public class HomeController {
 		return  "<h2>Test 입니다</h2>";
 	}
 	
-	
+	/*
+	 * // 클라이언트 부를때는 fetch()로 
+	 * fetch()는 json에 특화되어있음
+	 * private BoardMapper boardMapper;
+	 * 
+	 * @RequestMapping("/test2")
+	 * @ResponseBody // 서버가 json을 내려보낸다
+	 * public BoardDTO test2() { 
+	 * List<BoardDTO> boardList = boardMapper.getBoardList(); 
+	 * return "boardList"; }
+	 */	
 }
 
 
