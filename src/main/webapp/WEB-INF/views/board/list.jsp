@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Users List</title>
-<link href="/css/common.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="/css/common.css" rel="stylesheet">
 <style>
    table { width:100%;  }
    td {
@@ -48,7 +48,7 @@
 	<main>
 		<%@include file="/WEB-INF/include/menus.jsp" %>
 		
-	  <h2>게시물 목록 ${menu.menu_name}</h2>
+	  <h2 class=".h2">게시물 목록 ${menu.menu_name}</h2> <!-- menu라는 객체에서 menu_name을 뽑는겨, menu.getMenu_name -->
 		<table id="list" class="table table-hover">
 			<tr>
 				<td>번호</td>
@@ -67,7 +67,7 @@
 			<c:forEach var="board" items="${bList}">
 			<tr>
 				<td>${ board.idx }</td>			
-				<td class="title"><a href="/Board/View?idx=${board.idx}">${ board.title }</a></td>			
+				<td class="title"><a href="/Board/View?idx=${board.idx}&menu_id=${menu_id}">${ board.title }</a></td>			
 				<td>${ board.writer }</td>		
 				<td>${ board.regdate }</td>		
 				<td>${ board.hit }</td>		

@@ -29,13 +29,17 @@
 				display : block;
 				color:white;
 				background-color : black;
-				&:hover {
+				&:hover, &.active {
 					text-decoration: none;
 					background-color : #04AA6D;
 					color:white;
-				}
+				}				
 			}
 		}
+	}
+	.h2 {
+		margin: 10px;
+		text-align: center;
 	}
 	
 	

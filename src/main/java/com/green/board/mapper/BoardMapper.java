@@ -21,4 +21,6 @@ public interface BoardMapper {
 
 	void insertBoard(BoardDTO boardDTO);
 
+	void updateBoard(BoardDTO boardDTO);
+
 }
